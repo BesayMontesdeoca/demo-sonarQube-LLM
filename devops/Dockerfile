@@ -6,7 +6,6 @@ ARG VERSION=0.0.1-SNAPSHOT
 
 COPY ./src /home/app/src
 COPY ./pom.xml /home/app
-COPY ./devops/execute.sh /home/app/execute.sh
 
 WORKDIR /home/app
 
@@ -25,6 +24,6 @@ RUN mvn install
 FROM openjdk:11-jre-slim
 ARG VERSION
 COPY --from=build /home/app/target/spring-boot-2-hello-world-${VERSION}.jar /usr/local/lib/app.jar
-COPY --from=build /home/app/execute.sh /home/app/execute.sh
+COPY ./execute.sh /home/app/execute.sh
 
 ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
