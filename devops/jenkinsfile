@@ -38,7 +38,7 @@ pipeline {
       }
     }
 
-     stage('Extract Sonar Report') {
+     stage('LLM') {
       // Specifies where the entire Pipeline, or a specific stage, will execute in the Jenkins environment depending on where the agent section is placed
     	agent {
         dockerfile {
@@ -69,32 +69,6 @@ pipeline {
       }
     }
 
-    
-
-    stage('LLM Analysis') {
-    	
-      steps {
-      	// Recuperamos el artefacto si hiciera falta (opcional en pipelines multi-node)
-        unstash 'workspace' // Solo si es multi-node
-        
-        sh '''
-            git config --global user.email "jenkins@example.com"
-            git config --global user.name "Jenkins CI"
-
-            git pull
-
-            cp sonar_last_analysis.json .
-            git add sonar_last_analysis.json
-            git commit -m "SonarQube Analysis" || echo "Nothing to commit"
-
-            git push
-        '''
-      }
-    }
-
-    
-
-  }
 
   post {
     always  {
