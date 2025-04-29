@@ -24,6 +24,5 @@ RUN mvn install
 FROM openjdk:11-jre-slim
 ARG VERSION
 COPY --from=build /home/app/target/spring-boot-2-hello-world-${VERSION}.jar /usr/local/lib/app.jar
-COPY ./execute.sh /home/app/execute.sh
 
 ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
