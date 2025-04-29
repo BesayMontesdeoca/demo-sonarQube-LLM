@@ -38,6 +38,7 @@ pipeline {
     stage('LLM') {
     	
       steps {
+        sh "chmod +x ./execute.sh"
         sh './execute.sh'
       }
     }
