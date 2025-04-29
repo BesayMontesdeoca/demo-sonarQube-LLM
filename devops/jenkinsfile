@@ -44,7 +44,7 @@ pipeline {
       }
       steps {
       	//catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-        sh 'echo "LLM Stage"'
+        sh './usr/local/lib/execute.sh'
       }
     }
 
