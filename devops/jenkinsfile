@@ -44,7 +44,7 @@ pipeline {
       }
       steps {
       	//catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-        sh './usr/local/lib/execute.sh'
+        sh './home/app/execute.sh'
       }
     }
 
