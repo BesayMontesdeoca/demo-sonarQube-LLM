@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HelloWorldControllerTest {
+class HelloWorldControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void shouldReturnExpectedMessage() throws Exception {
+    void shouldReturnExpectedMessage() throws Exception {
 
         mockMvc.perform(get("/hello"))
                 .andExpect(status().isOk())
