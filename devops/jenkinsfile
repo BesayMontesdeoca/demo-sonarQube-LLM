@@ -32,40 +32,19 @@ pipeline {
             -Dsonar.projectKey=demo-sonarQube-llm \
             -Dsonar.host.url=http://172.16.236.10:9000 \
             -Dsonar.login=sqp_4feea8ee1d8ff30fe99ea20cd86dbc1f81b416d2'
-        //}
-        // Si llegamos aquí sin error, marcamos SONAR_SUCCESS
-       // SONAR_SUCCESS = "true"
       }
     }
 
-     stage('LLM') {
+    stage('LLM') {
       // Specifies where the entire Pipeline, or a specific stage, will execute in the Jenkins environment depending on where the agent section is placed
     	agent {
-        dockerfile {
-            filename 'Dockerfile'   
-            dir './sonarqube-llm'                 // Directorio donde está el Dockerfile
-            additionalBuildArgs ''  // Si quieres pasar build args, aquí
+      	docker {
+        	image 'maven:3.8.6-openjdk-11-slim'
         }
       }
-      environment {
-          SONAR_HOST = 'http://172.16.236.10:9000'
-          SONAR_TOKEN = 'sqp_4feea8ee1d8ff30fe99ea20cd86dbc1f81b416d2'
-          PROJECT_KEY = 'demo-sonarQube-llm'
-      }
-      // when {
-      //     expression { return env.SONAR_SUCCESS == "false" }
-      // }
       steps {
-          sh 'python fetch_sonar_report.py'
-          echo 'SonarQube report fetched successfully!'
-
-          sh 'cat sonar_last_analysis.json'
-
-          // Copiamos el fichero desde donde esté al workspace (si es necesario)
-          sh 'cp sonar_last_analysis.json $WORKSPACE/'
-          
-          // Guardamos sonar_last_analysis.json como artefacto de Jenkins
-          archiveArtifacts artifacts: 'sonar_last_analysis.json', fingerprint: true
+      	//catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+        sh 'echo "LLM Stage"'
       }
     }
 
