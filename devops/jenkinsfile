@@ -35,11 +35,11 @@ pipeline {
       }
     }
 
-    stage('LLM') {
+    stage('LLM Analyzer') {
     	
       steps {
-        sh "chmod +x ./execute.sh"
-        sh './execute.sh'
+        sh "chmod +x ./LLM.sh"
+        sh './LLM.sh'
       }
     }
 
